@@ -13,9 +13,15 @@ Instead we count the number of cars entering and exiting each lot using a camera
 
 
 ##Milestones
-A one-entrance lot.
-Etc...
 
+*  Design Doc Written
 
-##Assumptions
-Each Raspberry Pi must have access to power and wifi. Initially, we also assume clear weather and daylight conditions. 
+*  Demoing image subraction to transportation committee
+
+*  Testing with a real pi and camera
+
+*  Observing the data obtained on a single entrance/exit parking lot
+
+*  Scaling to a parking lot multiple entrances and exits
+
+*  Scaling to all parking lots in Cal Poly Pomona
