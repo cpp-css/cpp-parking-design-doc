@@ -37,11 +37,11 @@ Note: diagrams were created with [draw.io](https://draw.io). Our diagrams are st
 
 ###Single Backend:
 
-![Single Backend](SingleBackendArchitecture.svg)
+![Single Backend](SingleBackendArchitecture.png)
 
 
 ###Multiple Backend:
 
-![Multiple Backend](MultipleBackendArchitecture.svg)
+![Multiple Backend](MultipleBackendArchitecture.png)
 
 
