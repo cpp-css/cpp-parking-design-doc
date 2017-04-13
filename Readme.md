@@ -1,19 +1,19 @@
-#CPP Parking Status Indicator (PSI)
+# CPP Parking Status Indicator (PSI)
 
 The Parking Status Indicator (PSI) is a centralized service for live monitoring of parking availability in Cal Poly Pomona parking lots.
 
 
-##Abstract
+## Abstract
 Currently, Cal Poly Pomona parking has no live centralized online service showing the availability of parking spaces in all parking lots. This presents a problem as students waste time driving around trying to find parking. We propose to solve this problem by creating the Parking Status Indicator, a 3-component webservice that will reduce congestion and average time taken to find parking.
 
-##Background
+## Background
 
 One means of determining the number of parking spots available per lot would be to place a sensor on each parking spot. This would be ideal, as we could get a global view of all lots with accurate information. However, the cost of the sensors and the labor to install them is prohibitively high. For example, [even small sensors can cost between $200 and $400 each](http://www.popularmechanics.com/technology/gadgets/a6528/smart-parking-systems-steer-drivers-to-open-spaces/).
 
 Instead we can count the number of cars entering and exiting each lot using a camera placed at every entrance/exit of each lot. Using computer vision, we can determine when cars pass the boundary of the lot. This solution only requires a camera, and a computer capable of running computer vision software mounted at **each entrance/exit** instead of each parking space. The Raspberry Pi fulfills this role cheaply, and Cal Poly Pomona's Computer Science Society can build the computer vision software. 
 
 
-##Architecture
+## Architecture
 The three primary components are:
 
 1. [Ingress/Egress Monitors](https://github.com/cpp-css/cpp-parking-computer-vision)
@@ -39,21 +39,21 @@ The three primary components are:
 
 	*  This is the GUI that the user sees. At first we plan on building a webapp, since it should work on all platforms/devices. In the future, we may also create Android/iOS apps. 
 
-##Architecture Diagram
+## Architecture Diagram
 
 Note: diagrams were created with [draw.io](https://draw.io). Our diagrams are stored [here](https://drive.google.com/file/d/0B5urvZjIEkRkOFJhd2ZyYWFwc2c/view?usp=sharing).
 
-###Single Backend:
+### Single Backend:
 
 ![Single Backend](images/SingleBackendArchitecture.png)
 
 
-###Multiple Backend:
+### Multiple Backend:
 
 ![Multiple Backend](images/MultipleBackendArchitecture.png)
 
 
-##Implementation
+## Implementation
 
 Every single parking lot has entrances and exits. An Ingress/Egress Monitor is a Python script running on a [Rasberry Pi](https://www.raspberrypi.org/) equipped with a camera stationed at the entrance and exit of each lot. We use [OpenCV](http://opencv.org/) [image subraction libraries](http://docs.opencv.org/trunk/db/d5c/tutorial_py_bg_subtraction.html) on an incoming video stream to determine the presence of cars in the video. The car objects can then be dilated into blobs, which are then processed by an [OpenCV blob-tracking library](https://www.learnopencv.com/blob-detection-using-opencv-python-c/). As their [centroid passes through a line marking the entrance/exit](https://github.com/andrewssobral/simple_vehicle_counting), we increment/decrement a local counter within the script. The counter measures the net number of cars that have entered the lot through the currently monitored entrance/exit. Every few minutes, the counter's value is sent as the JSON payload of an HTTP Post to the appropriate lot endpoint of the PSI Backend, and the local counter's value is reset to 0. 
 
@@ -75,7 +75,7 @@ By having the backend only return JSON (not html), we can easily divide the resp
 
 
 
-##Open Issues/Assumptions
+## Open Issues/Assumptions
 
 *  The projected number of cars in each lot may vary from the real number by a small percentage. We aim to determine that percentage over the course of our testing. 
 *  Each Raspberry Pi must have access to power and wifi (hopefully with the help of the transportation committee?). 
@@ -86,12 +86,12 @@ By having the backend only return JSON (not html), we can easily divide the resp
 *  We plan to eventually record statistics on number of cars in parking lots through the day, week, month, and quarter of Cal Poly Pomona to discover long term parking trends. 
 
 
-##Cost
+## Cost
 
 
 The major costs for this project are the Raspberry Pis, cameras, and associated accessories (such as cases).
 
-###Pilot Program
+### Pilot Program
 
 For testing a single entrance on a single lot in our pilot program we need:
 
@@ -110,7 +110,7 @@ For testing a single entrance on a single lot in our pilot program we need:
 **Our pilot program requested budget is (50 + 15 + 22 + 8.5 + 23) * 1.10 ~= $135**
 
 
-###Final Estimated Cost
+### Final Estimated Cost
 
 For the finished service, we propose one raspberry pi 3 with a camera and case per parking lot entrance and exit. 
 
@@ -121,7 +121,7 @@ For the finished service, we propose one raspberry pi 3 with a camera and case p
 We would also need a computer for us to run the PSI Backend Server on. Fortunately, the Computer Science Department should have one available.
 
 
-##Milestones (to be completed)
+## Milestones (to be completed)
 
 *  Design and Plan Finalized
 
